@@ -13,13 +13,15 @@ export async function POST(req: Request) {
     const notifyEmail = process.env.NOTIFY_EMAIL;
     const fromEmail = process.env.FROM_EMAIL;
 
-    if (!resendKey || !notifyEmail || !fromEmail) {
-      console.error("Missing env vars:", {
-        hasResendKey: !!resendKey,
-        hasNotifyEmail: !!notifyEmail,
-        hasFromEmail: !!fromEmail,
-      });
+    console.log("ENV CHECK:", {
+      hasResendKey: !!resendKey,
+      hasNotifyEmail: !!notifyEmail,
+      hasFromEmail: !!fromEmail,
+      notifyEmail,
+      fromEmail,
+    });
 
+    if (!resendKey || !notifyEmail || !fromEmail) {
       return NextResponse.json(
         { error: "Missing environment variables" },
         { status: 500 }
@@ -28,9 +30,9 @@ export async function POST(req: Request) {
 
     const resend = new Resend(resendKey);
 
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: fromEmail,
-      to: notifyEmail,
+      to: [notifyEmail],
       subject: `Taran selected: ${choice.toUpperCase()}`,
       html: `
         <div style="font-family:Arial,sans-serif;padding:24px">
@@ -41,9 +43,18 @@ export async function POST(req: Request) {
       `,
     });
 
-    return NextResponse.json({ ok: true });
+    console.log("RESEND RESULT:", JSON.stringify(result, null, 2));
+
+    if (result.error) {
+      return NextResponse.json(
+        { error: result.error.message || "Resend send failed", details: result.error },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ ok: true, data: result.data });
   } catch (error) {
-    console.error("Email send failed:", error);
+    console.error("ROUTE ERROR:", error);
     return NextResponse.json(
       { error: "Failed to send email" },
       { status: 500 }
