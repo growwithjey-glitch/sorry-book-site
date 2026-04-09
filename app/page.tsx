@@ -34,11 +34,7 @@ const chapters = [
   },
 ];
 
-const photos = [
-  "/couple-photo.jpg",
-  "/photo1.jpg",
-  "/photo2.jpg",
-];
+const photos = ["/couple-photo.jpg", "/photo1.jpg", "/photo2.jpg"];
 
 export default function HomePage() {
   const [activeChapter, setActiveChapter] = useState(0);
@@ -47,8 +43,8 @@ export default function HomePage() {
   const [confettiMode, setConfettiMode] = useState<ConfettiMode>("none");
   const [glowMode, setGlowMode] = useState(false);
   const [dimMode, setDimMode] = useState(false);
-  const [musicOn, setMusicOn] = useState(false);
   const [showLoveLetter, setShowLoveLetter] = useState(false);
+  const [showSong, setShowSong] = useState(false);
   const [turning, setTurning] = useState(false);
   const [currentPhoto, setCurrentPhoto] = useState(0);
 
@@ -132,12 +128,6 @@ export default function HomePage() {
           "radial-gradient(circle at top, #fff3f7 0%, #fde7ee 35%, #f9dde7 60%, #f7d6e2 100%)",
       }}
     >
-      <audio
-        id="bg-music"
-        loop
-        src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=romantic-background-112201.mp3"
-      />
-
       <div className="pointer-events-none absolute inset-0">
         {decorativeItems.map((item) => (
           <span
@@ -312,31 +302,31 @@ export default function HomePage() {
                 <div className="relative z-10">
                   <div className="mb-6 flex items-center justify-between">
                     <button
-                      onClick={() => {
-                        const audio = document.getElementById(
-                          "bg-music"
-                        ) as HTMLAudioElement | null;
-
-                        if (!audio) return;
-
-                        if (musicOn) {
-                          audio.pause();
-                        } else {
-                          audio.volume = 0.35;
-                          audio.play().catch(() => {});
-                        }
-
-                        setMusicOn((prev) => !prev);
-                      }}
+                      onClick={() => setShowSong((prev) => !prev)}
                       className="rounded-full border border-pink-200 bg-white/90 px-4 py-2 text-sm font-semibold text-[#8b2f5e] shadow-sm transition hover:scale-105"
                     >
-                      {musicOn ? "Pause music ♫" : "Play romantic music ♫"}
+                      {showSong ? "Hide our song ♫" : "Play our song ♫"}
                     </button>
 
                     <span className="text-xs uppercase tracking-[0.35em] text-[#8f7c85]">
                       {chapters[activeChapter].label}
                     </span>
                   </div>
+
+                  {showSong && (
+                    <div className="mb-6 animate-page">
+                      <div className="overflow-hidden rounded-[24px] border border-white/60 bg-white/80 shadow-xl">
+                        <iframe
+                          src="https://open.spotify.com/embed?uri=spotify%3Atrack%3A2JZKXgq5zsokN01KWyiY6n"
+                          width="100%"
+                          height="152"
+                          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                          loading="lazy"
+                          style={{ border: 0 }}
+                        />
+                      </div>
+                    </div>
+                  )}
 
                   {activeChapter === 0 && (
                     <div className="animate-page">
