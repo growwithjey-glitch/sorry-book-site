@@ -1,20 +1,23 @@
 {
-  "name": "sorry-book-site",
-  "private": true,
+  "name": "sorry-book-3d-upgrade",
   "version": "0.1.0",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "next": "^16.2.3",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "framer-motion": "^12.6.3",
+    "lucide-react": "^0.511.0",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
   },
   "devDependencies": {
-    "@types/node": "25.5.2",
-    "@types/react": "19.2.14",
-    "typescript": "6.0.2"
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.1.2",
+    "typescript": "^5.8.3"
   }
 }
