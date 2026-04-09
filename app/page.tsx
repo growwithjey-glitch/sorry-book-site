@@ -517,9 +517,9 @@ export default function HomePage() {
                           Grant Jey a Re-Do?
                         </h3>
                         <p className="mt-4 text-lg leading-8 text-[#725d69]">
-                          You can choose honestly. This site will survive either
-                          way. Jey will just be dramatically happier with one of
-                          the options.
+                          Choose honestly, Gori.
+One button makes Jey ridiculously happy.
+The other makes him sad and dramatic, but still respectful.
                         </p>
 
                         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
