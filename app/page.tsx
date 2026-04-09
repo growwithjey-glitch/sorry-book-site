@@ -576,8 +576,7 @@ export default function HomePage() {
               Okay... I understand
             </h2>
             <p className="mt-4 text-lg leading-8 text-[#626b80]">
-              No re-do yet. No pressure. I will keep trying through actions, not
-              just animations.
+              I will stop bothering you from now on. I will never show you my face again. Sorry one last time. Our story 💔 ends here....
             </p>
             <button
               onClick={() => setShowPopup(null)}
